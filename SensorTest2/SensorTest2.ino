@@ -2,6 +2,9 @@
 #include <WebServer.h>
 #include <time.h>
 #include "DHT.h"
+#include "FS.h"
+#include "SD.h"
+#include "SPI.h"
 
 const char* hostname = "Pflanze";
 const char* ssid = "FRITZ!Box 7580 YV";
