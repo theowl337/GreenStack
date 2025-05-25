@@ -1,15 +1,17 @@
 body {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
   margin-top: 30px;
+  background: linear-gradient(to right, #D8F5DA, #EBF8FF);
 }
 
 .navbar {
   width: 95%;
-  height: 6em;
   display: flex;
   justify-content: space-between;
-  border: 3px solid black;
+  border: 1px solid black;
   border-radius: 50px;
   margin: auto;
 }
@@ -20,7 +22,7 @@ body {
 }
 
 .nav-left img {
-  width: 120px;
+  height: 60px;
   margin-left: 20%;
 }
 
@@ -32,8 +34,8 @@ body {
 }
 
 .nav-center a {
+  margin-right: 50px;
   font-family: 'Inter', sans-serif;
-  margin: 5%;
   color: #6694b0;
   font-size: 50px;
   font-weight: bolder;
@@ -48,6 +50,6 @@ body {
 
 .nav-right img {
   border-radius: 50%;
-  height: 80%;
-  margin-right: 5%;
+  height: 50px;
+  margin-right: 6px;
 }
