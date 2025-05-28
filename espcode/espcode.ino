@@ -99,7 +99,8 @@ void setup() {
         vTaskDelete(NULL);
       }, "Pump_Off_Task", 2048, NULL, 1, NULL);
     }
-  })
+  });
+  server.serveStatic("/", SD, "/");
   server.begin();
 }
 
