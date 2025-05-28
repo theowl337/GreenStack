@@ -27,6 +27,13 @@
       <img src="img/avatar.svg" alt="Profile">
     </div>
   </nav>
+  <button onclick="togglePump()">Water Plant</button>
+
+  <script>
+    function togglePump() {
+      fetch("/pump_on");
+    }
+  </script>
 </body>
 
 </html>
