@@ -7,10 +7,9 @@
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
+#include "secrets.h"
 
 const char* hostname = "Pflanze";
-const char* ssid = "REPLACE_WITH_SSID";
-const char* password = "REPLACE_WITH_PASSWD";
 
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 3600;
@@ -33,7 +32,7 @@ void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
   WiFi.setHostname(hostname);
-  WiFi.begin(ssid, password);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.println("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');
@@ -87,6 +86,7 @@ void setup() {
   });
   server.on("/pump_on", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(pumpPin, HIGH);
+    Serial.println("request for /pump_on received - toggling pump");
     request->send(200, "text/plain", "pump toggled");
 
     static bool taskRunning = false;
