@@ -8,6 +8,7 @@
 #include "SD.h"
 #include "SPI.h"
 #include "secrets.h"
+#include "SPIFFS.h"
 
 const char* hostname = "Pflanze";
 

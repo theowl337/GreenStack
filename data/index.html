@@ -17,23 +17,56 @@
   <nav class="navbar">
     <div class="nav-left">
       <a href="./"><img src="img/GreenStack.webp" alt="Logo"></a>
+      <span></span>
     </div>
     <div class="nav-center">
       <div class="verticalLine"></div>
-      <a href="plantinfo">Plant Info</a>
-      <a href="about">About</a>
+      <a href="/plantinfo">Plant Info</a>
+      <a href="/about">About</a>
     </div>
     <div class="nav-right">
       <img src="img/avatar.svg" alt="Profile">
     </div>
   </nav>
-  <button onclick="togglePump()">Water Plant</button>
 
-  <script>
-    function togglePump() {
-      fetch("/pump_on");
-    }
-  </script>
+  <nav class="mobile-menu">
+    <img src="img/GreenStack.webp" alt="Logo">
+    <label class="hamburger">
+      <input type="checkbox">
+      <svg viewBox="0 0 32 32">
+        <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
+        <path class="line" d="M7 16 27 16"></path>
+      </svg>
+    </label>
+  </nav>
+
+  <div class="mobile-menu-interface">
+    <ul>
+      <li>Plant Info</li>
+      <li>About</li>
+    </ul>
+  </div>
+
+  <div class="card-holder">
+    <div class="card">
+      <h1>Temperature</h1>
+      <a href="/temperature">Details</a>
+    </div>
+    <div class="card">
+      <h1>Humidity</h1>
+      <a href="/humidity">Details</a>
+    </div>
+    <div class="card">
+      <h1>Soil Moisture</h1>
+      <a href="/soil-moisture">Details</a>
+    </div>
+  </div>
+
+  <div class="button-holder">
+    <a href="/pump_on"><button>Water Plant</button></a>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
