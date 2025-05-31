@@ -223,7 +223,7 @@ body {
 }
 
 
-.button-holder a button {
+.button-holder button {
   height: 80px;
   width: min(400px, 60vw);
   background-image: radial-gradient(rgba(0, 0, 0, 0.5) 1px, #72a18f 0);
