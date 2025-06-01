@@ -1,14 +1,17 @@
 #include <Arduino.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
 #include <WiFi.h>
+
+#define WM_NO_WEBSERVER
+#include <WiFiManager.h>
+
+#include <ESPAsyncWebServer.h>
+#include <AsyncTCP.h>
 #include <time.h>
 #include "DHT.h"
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
 #include "secrets.h"
-#include "SPIFFS.h"
 
 const char* hostname = "GreenStack";
 
@@ -30,20 +33,15 @@ String pumpState;
 String lastWateringTime = "Never";
 
 void initWiFi() {
-  WiFi.mode(WIFI_STA);
-  WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
-  WiFi.setHostname(hostname);
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.println("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
-    delay(1000);
+  WiFiManager wm;
+  wm.setBreakAfterConfig(true);
+  bool res = wm.autoConnect("GreenStack");
+  if (!res) {
+    Serial.println("Failed to connect or configure, rebooting...");
+    delay(3000);
+    ESP.restart();
   }
-  Serial.println("Connected!");
-  Serial.print("Local IP: ");
-  Serial.println(WiFi.localIP());
-  Serial.print("Hostname: ");
-  Serial.println(hostname);
+  Serial.println("WiFi connected: " + WiFi.localIP().toString());
 }
 
 float getTemperature() {
@@ -107,14 +105,14 @@ void initSDCard(){
 
 void setup() {
   Serial.begin(115200);
+  initWiFi();
   initSDCard();
   dht.begin();
-  initWiFi();
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
   printLocalTime();
   Serial.println("Temperature: " + String(dht.readTemperature()) + "°C");
   Serial.println("Humidity: " + String(getHumidity()) + "%");
-  Serial.print("Soil Moisture: " + String(getSoilMoisture()));
+  Serial.println("Soil Moisture: " + String(getSoilMoisture()));
 
   pinMode(AOUT_PIN, INPUT);
   pinMode(pumpPin, OUTPUT);
