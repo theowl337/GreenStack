@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
-  <link href="styles.css" rel="stylesheet">
+  <link href="styles.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -50,15 +50,18 @@
   <div class="card-holder">
     <div class="card">
       <h1>Temperature</h1>
+      <p id="temp">%TEMPERATURE%</p>
       <a href="/temperature">Details</a>
     </div>
     <div class="card">
       <h1>Humidity</h1>
+      <p id="humidity">%HUMIDITY%</p>
       <a href="/humidity">Details</a>
     </div>
     <div class="card">
       <h1>Soil Moisture</h1>
-      <a href="/soil-moisture">Details</a>
+      <p id="soilmoisture">%SOIL_MOISTURE%</p>
+      <a href="/soilmoisture">Details</a>
     </div>
   </div>
 
