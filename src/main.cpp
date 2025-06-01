@@ -1,9 +1,5 @@
 #include <Arduino.h>
 #include <WiFi.h>
-
-#define WM_NO_WEBSERVER
-#include <WiFiManager.h>
-
 #include <ESPAsyncWebServer.h>
 #include <AsyncTCP.h>
 #include <time.h>
@@ -12,6 +8,7 @@
 #include "SD.h"
 #include "SPI.h"
 #include "secrets.h"
+#include "WiFiConfig.h"
 
 const char* hostname = "GreenStack";
 
@@ -33,15 +30,6 @@ String pumpState;
 String lastWateringTime = "Never";
 
 void initWiFi() {
-  WiFiManager wm;
-  wm.setBreakAfterConfig(true);
-  bool res = wm.autoConnect("GreenStack");
-  if (!res) {
-    Serial.println("Failed to connect or configure, rebooting...");
-    delay(3000);
-    ESP.restart();
-  }
-  Serial.println("WiFi connected: " + WiFi.localIP().toString());
 }
 
 float getTemperature() {
