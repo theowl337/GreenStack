@@ -30,3 +30,5 @@ setInterval(fetchTemperature, 2000);
 setInterval(fetchHumidity, 2000);
 setInterval(fetchSoilMoisture, 2000);
 window.onload = fetchTemperature;
+window.onload = fetchHumidity;
+window.onload = fetchSoilMoisture;
