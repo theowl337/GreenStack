@@ -12,9 +12,6 @@
 
 const char* hostname = "GreenStack";
 
-const char* ap_ssid = "GreenStack";
-const char* ap_password = "12345678"; 
-
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 3600;
 const int daylightOffset_sec = 3600;
