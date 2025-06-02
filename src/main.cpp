@@ -8,7 +8,6 @@
 #include "SPI.h"
 #include "secrets.h"
 #include "SPIFFS.h"
-#include "webfiles.h"
 
 const char* hostname = "GreenStack";
 
