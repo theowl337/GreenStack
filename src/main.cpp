@@ -126,7 +126,6 @@ void initSPIFFS(){
   }
   Serial.println("SPIFFS mounted successfully");
   
-  // Zeige verfügbaren speicher (sehr wichtig für dich theo xD)
   size_t totalBytes = SPIFFS.totalBytes();
   size_t usedBytes = SPIFFS.usedBytes();
   Serial.printf("SPIFFS Total: %u bytes, Used: %u bytes\n", totalBytes, usedBytes);
@@ -146,19 +145,19 @@ void setup() {
   pinMode(AOUT_PIN, INPUT);
   pinMode(pumpPin, OUTPUT);
   pinMode(2, OUTPUT); // REMOVE AFTER TESTING!
-  
+ 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/html", index_html);
+    request->send(SPIFFS, "/index.html", "text/html");
   });
-  
+ 
   server.on("/styles.css", HTTP_GET, [](AsyncWebServerRequest *request){ // get style
-    request->send(200, "text/css", styles_css);
+    request->send(SPIFFS, "/styles.css", "text/css");
   });
-  
+ 
   server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request){ // get js
-    request->send(200, "application/javascript", script_js);
+    request->send(SPIFFS, "/script.js", "application/javascript");
   });
-  
+ 
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
       float temp = getTemperature();
       String json = "{\"temp\":" + String(temp, 1) + "}";
