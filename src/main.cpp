@@ -5,10 +5,10 @@
 #include <time.h>
 #include "DHT.h"
 #include "FS.h"
-#include "SD.h"
 #include "SPI.h"
 #include "secrets.h"
 #include "SPIFFS.h"
+#include "webfiles.h"
 
 const char* hostname = "GreenStack";
 
@@ -29,21 +29,52 @@ const int pumpPin = 26;
 String pumpState;
 String lastWateringTime = "Never";
 
+bool isAPMode = false;
+
 void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
   WiFi.setHostname(hostname);
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.println("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED) {
+  
+  Serial.println("Versuche Verbindung zu WiFi herzustellen...");
+  
+  unsigned long startTime = millis();
+  const unsigned long timeout = 30000;  // Timeout 30 Sec
+  
+  while (WiFi.status() != WL_CONNECTED && millis() - startTime < timeout) {
     Serial.print('.');
     delay(1000);
   }
-  Serial.println("Connected!");
-  Serial.print("Local IP: ");
-  Serial.println(WiFi.localIP());
-  Serial.print("Hostname: ");
-  Serial.println(hostname);
+  
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nWiFi verbunden!");
+    Serial.print("Local IP: ");
+    Serial.println(WiFi.localIP());
+    Serial.print("Hostname: ");
+    Serial.println(hostname);
+    isAPMode = false;
+    
+    // NTP Zeit synchronisieren
+    configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  } else {
+    Serial.println("\nNo Wifi connection. Starting AP mode...");
+    startAccessPoint();
+  }
+}
+
+void startAccessPoint() {
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(ap_ssid, ap_password);
+  
+  IPAddress IP = WiFi.softAPIP();
+  Serial.println("Access Point started");
+  Serial.print("AP SSID: ");
+  Serial.println(ap_ssid);
+  Serial.print("AP IP Adresse: ");
+  Serial.println(IP);
+  
+  isAPMode = true;
 }
 
 float getTemperature() {
@@ -59,6 +90,11 @@ float getSoilMoisture() {
 }
 
 void printLocalTime() {
+  if (isAPMode) {
+    Serial.println("!Zeit nicht verfügbar (AP Modus)");
+    return;
+  }
+  
   struct tm timeinfo;
   if(!getLocalTime(&timeinfo)) {
     Serial.println("Failed to obtain time");
@@ -68,6 +104,10 @@ void printLocalTime() {
 }
 
 String localTime() {
+  if (isAPMode) {
+    return "!Zeit nicht verfügbar (AP modus)";
+  }
+  
   struct tm timeinfo;
   if (!getLocalTime(&timeinfo)) {
     Serial.println("Failed to obtain time");
@@ -79,38 +119,25 @@ String localTime() {
   return String(buffer);
 }
 
-void initSDCard(){
-  if(!SD.begin()){
-    Serial.println("Card Mount Failed");
+void initSPIFFS(){
+  if(!SPIFFS.begin(true)){
+    Serial.println("SPIFFS Mount Failed");
     return;
   }
-  uint8_t cardType = SD.cardType();
-
-  if(cardType == CARD_NONE){
-    Serial.println("No SD card attached");
-    return;
-  }
-
-  Serial.print("SD Card Type: ");
-  if(cardType == CARD_MMC){
-    Serial.println("MMC");
-  } else if(cardType == CARD_SD){
-    Serial.println("SDSC");
-  } else if(cardType == CARD_SDHC){
-    Serial.println("SDHC");
-  } else {
-    Serial.println("UNKNOWN");
-  }
-  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-  Serial.printf("SD Card Size: %lluMB\n", cardSize);
+  Serial.println("SPIFFS mounted successfully");
+  
+  // Zeige verfügbaren speicher (sehr wichtig für dich theo xD)
+  size_t totalBytes = SPIFFS.totalBytes();
+  size_t usedBytes = SPIFFS.usedBytes();
+  Serial.printf("SPIFFS Total: %u bytes, Used: %u bytes\n", totalBytes, usedBytes);
 }
 
 void setup() {
   Serial.begin(115200);
-  initSDCard();
+  initSPIFFS();
   dht.begin();
-  initWiFi();
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  initWiFi();  
+  
   printLocalTime();
   Serial.println("Temperature: " + String(dht.readTemperature()) + "°C");
   Serial.println("Humidity: " + String(getHumidity()) + "%");
@@ -121,8 +148,17 @@ void setup() {
   pinMode(2, OUTPUT); // REMOVE AFTER TESTING!
   
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SD, "/index.html", "text/html");
+    request->send_P(200, "text/html", index_html);
   });
+  
+  server.on("/styles.css", HTTP_GET, [](AsyncWebServerRequest *request){ // get style
+    request->send_P(200, "text/css", styles_css);
+  });
+  
+  server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request){ // get js
+    request->send_P(200, "application/javascript", script_js);
+  });
+  
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
       float temp = getTemperature();
       String json = "{\"temp\":" + String(temp, 1) + "}";
@@ -159,8 +195,10 @@ void setup() {
       }, "Pump_Off_Task", 2048, NULL, 1, NULL);
     }
   });
-  server.serveStatic("/", SD, "/");
+  
   server.begin();
 }
 
-void loop() {}
+void loop() {
+  delay(700); 
+}
