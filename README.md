@@ -10,7 +10,7 @@ This allows for less water to be used up over time.
 Greenstack adds to this functionality by letting you control it over your network connection.
 It let's you control how much to automatically water the plants.
 The integrated sensors even let you keep track of your plants and when they are running dry,
-as well as temperature and humidity reading of the room.
+as well as temperature and humidity readings of the room.
 
 # Materials needed
 1. ESP32 module, preferably ESP-WROOM-32
