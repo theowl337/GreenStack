@@ -14,11 +14,19 @@ as well as temperature and humidity readings of the room.
 
 # Materials needed
 1. ESP32 module, preferably ESP-WROOM-32
-2. MicroSD card (min. 8GB)
-3. MicroSD card module
 4. Water pump and tube
 5. IRLZ44N MOSFET
 6. 12V to 5V Buck converter
 7. DHT22 temperature and humidity sensor
 8. Hygrometer (soil moisture sensor, capacitive)
 9. 3D-printed casing
+
+
+# Technical Features
+
+1. Web server running on ESP32 with RESTful API endpoints
+2. SPIFFS file system for storing web interface files
+3. FreeRTOS tasks for non-blocking pump control
+4. NTP time synchronization --> logging
+5. Automatic WiFi fallback to AP mode
+6. JSON API for sensor data
