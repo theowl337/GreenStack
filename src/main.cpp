@@ -31,6 +31,20 @@ String lastWateringTime = "Never";
 
 bool isAPMode = false;
 
+void startAccessPoint() {
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(ap_ssid, ap_password);
+  
+  IPAddress IP = WiFi.softAPIP();
+  Serial.println("Access Point started");
+  Serial.print("AP SSID: ");
+  Serial.println(ap_ssid);
+  Serial.print("AP IP Adresse: ");
+  Serial.println(IP);
+  
+  isAPMode = true;
+}
+
 void initWiFi() {
   WiFi.mode(WIFI_STA);
   WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
@@ -61,20 +75,6 @@ void initWiFi() {
     Serial.println("\nNo Wifi connection. Starting AP mode...");
     startAccessPoint();
   }
-}
-
-void startAccessPoint() {
-  WiFi.mode(WIFI_AP);
-  WiFi.softAP(ap_ssid, ap_password);
-  
-  IPAddress IP = WiFi.softAPIP();
-  Serial.println("Access Point started");
-  Serial.print("AP SSID: ");
-  Serial.println(ap_ssid);
-  Serial.print("AP IP Adresse: ");
-  Serial.println(IP);
-  
-  isAPMode = true;
 }
 
 float getTemperature() {
@@ -148,15 +148,15 @@ void setup() {
   pinMode(2, OUTPUT); // REMOVE AFTER TESTING!
   
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send_P(200, "text/html", index_html);
+    request->send(200, "text/html", index_html);
   });
   
   server.on("/styles.css", HTTP_GET, [](AsyncWebServerRequest *request){ // get style
-    request->send_P(200, "text/css", styles_css);
+    request->send(200, "text/css", styles_css);
   });
   
   server.on("/script.js", HTTP_GET, [](AsyncWebServerRequest *request){ // get js
-    request->send_P(200, "application/javascript", script_js);
+    request->send(200, "application/javascript", script_js);
   });
   
   server.on("/temperature", HTTP_GET, [](AsyncWebServerRequest *request){
