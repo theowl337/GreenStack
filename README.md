@@ -1,5 +1,5 @@
 # GreenStack
-Greanstack is a smart solution for watering potted plants.
+Greenstack is a smart solution for watering potted plants.
 
 # Details
 Greenstack is based on the design of a hanging basket for potted plants.
