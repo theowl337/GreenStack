@@ -5,135 +5,167 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GreenStack</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="auth-background">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="grid-overlay"></div>
-  </div>
-   
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="./"><span class="logo-icon">🌿</span></a>
-      <span></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenStack</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="auth-background">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="grid-overlay"></div>
     </div>
-    <div class="nav-center">
-      <div class="verticalLine"></div>
-      <a href="/plantinfo">Plant Info</a>
-      <a href="/about">About</a>
-    </div>
-    <div class="nav-right">
-      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-        <span class="theme-icon">🌙</span>
-      </button>
-      <label class="hamburger" onclick="openWiFiConfig()">
-        <svg viewBox="0 0 32 32">
-          <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-          <path class="line" d="M7 16 27 16"></path>
-        </svg>
-      </label>
-    </div>
-  </nav>
-  
-  <nav class="mobile-menu">
-    <span class="logo-icon mobile-logo">🌿</span>
-    <div class="mobile-controls">
-      <button class="theme-toggle mobile-theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-        <span class="theme-icon">🌙</span>
-      </button>
-      <label class="hamburger" onclick="openWiFiConfig()">
-        <svg viewBox="0 0 32 32">
-          <path class="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"></path>
-          <path class="line" d="M7 16 27 16"></path>
-        </svg>
-      </label>
-    </div>
-  </nav>
 
-  <!-- WiFi Configuration Modal -->
-  <div id="wifi-modal" class="wifi-modal">
-    <div class="wifi-modal-content">
-      <div class="wifi-modal-header">
-        <h2>WiFi Configuration</h2>
-        <span class="wifi-close" onclick="closeWiFiConfig()">&times;</span>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="./"><span class="logo-icon">🌿</span></a>
+        <span></span>
       </div>
-      
-      <div class="wifi-status">
-        <div class="status-indicator">
-          <span id="wifi-status-text">Checking...</span>
+      <div class="nav-center">
+        <div class="verticalLine"></div>
+        <a href="/plantinfo">Plant Info</a>
+        <a href="/about">About</a>
+      </div>
+      <div class="nav-right">
+        <button
+          class="theme-toggle"
+          onclick="toggleTheme()"
+          title="Toggle Theme"
+        >
+          <span class="theme-icon">🌙</span>
+        </button>
+        <label class="hamburger" onclick="openWiFiConfig()">
+          <svg viewBox="0 0 32 32">
+            <path
+              class="line line-top-bottom"
+              d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+            ></path>
+            <path class="line" d="M7 16 27 16"></path>
+          </svg>
+        </label>
+      </div>
+    </nav>
+
+    <nav class="mobile-menu">
+      <span class="logo-icon mobile-logo">🌿</span>
+      <div class="mobile-controls">
+        <button
+          class="theme-toggle mobile-theme-toggle"
+          onclick="toggleTheme()"
+          title="Toggle Theme"
+        >
+          <span class="theme-icon">🌙</span>
+        </button>
+        <label class="hamburger" onclick="openWiFiConfig()">
+          <svg viewBox="0 0 32 32">
+            <path
+              class="line line-top-bottom"
+              d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
+            ></path>
+            <path class="line" d="M7 16 27 16"></path>
+          </svg>
+        </label>
+      </div>
+    </nav>
+
+    <!-- WiFi Configuration Modal -->
+    <div id="wifi-modal" class="wifi-modal">
+      <div class="wifi-modal-content">
+        <div class="wifi-modal-header">
+          <h2>WiFi Configuration</h2>
+          <span class="wifi-close" onclick="closeWiFiConfig()">&times;</span>
+        </div>
+
+        <div class="wifi-status">
+          <div class="status-indicator">
+            <span id="wifi-status-text">Checking...</span>
+          </div>
+        </div>
+
+        <div class="wifi-section">
+          <h3>Connect to Network</h3>
+          <form id="wifi-form" onsubmit="connectWiFi(event)">
+            <div class="input-group">
+              <label for="ssid">Network Name (SSID)</label>
+              <input
+                type="text"
+                id="ssid"
+                name="ssid"
+                placeholder="Enter network name"
+                required
+              />
+            </div>
+            <div class="input-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                onclick="togglePassword()"
+              >
+                👁️
+              </button>
+            </div>
+            <button type="submit" class="connect-button">Connect</button>
+          </form>
+        </div>
+
+        <div class="wifi-section">
+          <h3>Access Point Mode</h3>
+          <div class="ap-controls">
+            <button onclick="toggleAPMode()" class="ap-button">
+              Toggle AP Mode
+            </button>
+            <p class="ap-info">Create a hotspot for direct connection</p>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="wifi-section">
-        <h3>Connect to Network</h3>
-        <form id="wifi-form" onsubmit="connectWiFi(event)">
-          <div class="input-group">
-            <label for="ssid">Network Name (SSID)</label>
-            <input type="text" id="ssid" name="ssid" placeholder="Enter network name" required>
-          </div>
-          <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password">
-            <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
-          </div>
-          <button type="submit" class="connect-button">
-            Connect
-          </button>
-        </form>
+    <div class="card-holder">
+      <div class="card">
+        <div class="card-icon">🌡️</div>
+        <h1>Temperature</h1>
+        <p id="temp">Loading...</p>
+        <a href="/temperature">View Details</a>
       </div>
-
-      <div class="wifi-section">
-        <h3>Access Point Mode</h3>
-        <div class="ap-controls">
-          <button onclick="toggleAPMode()" class="ap-button">
-            Toggle AP Mode
-          </button>
-          <p class="ap-info">Create a hotspot for direct connection</p>
-        </div>
+      <div class="card">
+        <div class="card-icon">💧</div>
+        <h1>Humidity</h1>
+        <p id="humidity">Loading...</p>
+        <a href="/humidity">View Details</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌱</div>
+        <h1>Soil Moisture</h1>
+        <p id="soilmoisture">Loading...</p>
+        <a href="/soilmoisture">View Details</a>
       </div>
     </div>
-  </div>
-  
-  <div class="card-holder">
-    <div class="card">
-      <div class="card-icon">🌡️</div>
-      <h1>Temperature</h1>
-      <p id="temp">Loading...</p>
-      <a href="/temperature">View Details</a>
+
+    <div class="button-holder">
+      <button onclick="togglePump()">
+        <span class="button-icon">💧</span>
+        Water Plant
+      </button>
     </div>
-    <div class="card">
-      <div class="card-icon">💧</div>
-      <h1>Humidity</h1>
-      <p id="humidity">Loading...</p>
-      <a href="/humidity">View Details</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">🌱</div>
-      <h1>Soil Moisture</h1>
-      <p id="soilmoisture">Loading...</p>
-      <a href="/soilmoisture">View Details</a>
-    </div>
-  </div>
-  
-  <div class="button-holder">
-    <button onclick="togglePump()">
-      <span class="button-icon">💧</span>
-      Water Plant
-    </button>
-  </div>
-  
-  <script src="script.js"></script>
-</body>
+
+    <script src="script.js"></script>
+  </body>
 </html>

@@ -131,7 +131,7 @@ void initWiFi() {
   Serial.println("SSID: " + currentSSID);
   
   unsigned long startTime = millis();
-  const unsigned long timeout = 30000;  // Timeout 30 Sec
+  const unsigned long timeout = 20000;  // Timeout 20 Sec
   
   while (WiFi.status() != WL_CONNECTED && millis() - startTime < timeout) {
     Serial.print('.');
