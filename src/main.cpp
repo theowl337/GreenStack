@@ -182,7 +182,7 @@ void printLocalTime() {
 
 String localTime() {
   if (isAPMode) {
-    return "!Zeit nicht verfügbar (AP modus)";
+    return "!time not available (AP mode)";
   }
   
   struct tm timeinfo;
