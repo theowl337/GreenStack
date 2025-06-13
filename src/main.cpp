@@ -166,6 +166,20 @@ float getSoilMoisture() {
   return (analogRead(AOUT_PIN));
 }
 
+String moistureToHumanReadable(float moisture){
+  if (moisture > 1000 && moisture < 2000) {
+    return "very moist";
+  } else if (moisture > 2000 && moisture < 2500) {
+    return "fairly moist";
+  } else if (moisture > 2500 && moisture < 3000) {
+    return "quite dry";
+  } else if (moisture > 3000 && moisture < 4000) {
+    return "very dry";
+  } else {
+    return "Moisture level beyond comprehension";
+  }
+}
+
 void printLocalTime() {
   if (isAPMode) {
     Serial.println("!Zeit nicht verfügbar (AP Modus)");
@@ -250,8 +264,8 @@ void setup() {
   });
   
   server.on("/soilmoisture", HTTP_GET, [](AsyncWebServerRequest *request){
-    float soilMoisture = getSoilMoisture();
-    String json = "{\"soilmoisture\":" + String(soilMoisture, 1) + "}";
+    String soilMoisture = moistureToHumanReadable(getSoilMoisture());
+    String json = "{\"soilmoisture\":\"" + soilMoisture + "\"}";
     request->send(200, "application/json", json);
   });
   
