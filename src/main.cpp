@@ -226,7 +226,7 @@ void setup() {
   Serial.begin(115200);
   initSPIFFS();
   dht.begin();
-  initWiFi();  
+  initWiFi();
   
   printLocalTime();
   Serial.println("Temperature: " + String(dht.readTemperature()) + "°C");
