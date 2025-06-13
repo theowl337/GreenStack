@@ -127,7 +127,7 @@ void initWiFi() {
   WiFi.setHostname(hostname);
   WiFi.begin(currentSSID.c_str(), currentPassword.c_str());
   
-  Serial.println("Versuche Verbindung zu WiFi herzustellen...");
+  Serial.println("Connecting to WiFi ...");
   Serial.println("SSID: " + currentSSID);
   
   unsigned long startTime = millis();
@@ -139,7 +139,7 @@ void initWiFi() {
   }
   
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("\nWiFi verbunden!");
+    Serial.println("\nWiFi connected!");
     Serial.print("Local IP: ");
     Serial.println(WiFi.localIP());
     Serial.print("Hostname: ");
@@ -182,7 +182,7 @@ String moistureToHumanReadable(float moisture){
 
 void printLocalTime() {
   if (isAPMode) {
-    Serial.println("!Zeit nicht verfügbar (AP Modus)");
+    Serial.println("!Time not availabe (AP Mode)");
     return;
   }
   

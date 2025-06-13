@@ -624,6 +624,7 @@ body {
     background 0.3s ease;
   position: relative;
   overflow: hidden;
+  line-height: 3rem;
 }
 
 [data-theme='light'] .card {
