@@ -25,7 +25,7 @@ AsyncWebServer server(80);
 
 DHT dht(DHTPIN, DHTTYPE);
 
-const int pumpPin = 26;
+const int pumpPin = 2;
 String pumpState;
 String lastWateringTime = "Never";
 
@@ -235,7 +235,6 @@ void setup() {
 
   pinMode(AOUT_PIN, INPUT);
   pinMode(pumpPin, OUTPUT);
-  pinMode(2, OUTPUT); // REMOVE AFTER TESTING!
  
   // Serve static files
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
@@ -272,7 +271,6 @@ void setup() {
   // Pump control
   server.on("/pump_on", HTTP_GET, [](AsyncWebServerRequest *request){
     digitalWrite(pumpPin, HIGH);
-    digitalWrite(2, HIGH); // REMOVE AFTER TESTING!
     pumpState = "on";
     lastWateringTime = localTime();
     Serial.println("request for /pump_on received - toggling pump at " + localTime());
@@ -284,7 +282,6 @@ void setup() {
       xTaskCreate([](void *){
         delay(5000);
         digitalWrite(pumpPin, LOW);
-        digitalWrite(2, LOW); // REMOVE AFTER TESTING
         pumpState = "off";
         taskRunning = false;
         vTaskDelete(NULL);
